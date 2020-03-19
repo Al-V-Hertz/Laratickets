@@ -8,12 +8,12 @@
                 <div class="card-header">Ticket Pool</div>
 
                 <div class="card-body">
+                    @yield('subcontent')
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
-                    Ticket one
                 </div>
             </div>
         </div>
