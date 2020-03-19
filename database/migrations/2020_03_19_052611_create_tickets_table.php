@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->string('ticket_id');
             $table->string('title');
             $table->string('desc');
-            $table->string('status');
+            $table->string('status')->default('unassigned')->nullable();
             $table->string('assignedto')->nullable();
             $table->string('importance');
             $table->timestamps();
