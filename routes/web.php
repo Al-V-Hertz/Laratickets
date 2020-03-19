@@ -22,4 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/client', 'ClientController@index')->name('client');
+Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
 
