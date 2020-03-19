@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Ticket;
 
 class ClientController extends Controller
 {
@@ -10,6 +11,7 @@ class ClientController extends Controller
         if(Auth::user()->user_type!='client')
             return redirect()->route('admin');
         else
-            return view('/client');
+            $tickets = Ticket::all(); //where sender==auth:user//   
+            return view('client')->with('tickets', $tickets);
     }
 }

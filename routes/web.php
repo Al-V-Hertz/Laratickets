@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/client', 'ClientController@index')->name('client');
-Route::get('/tickets', 'TicketController@store');
+Route::get('/addtickets', 'TicketController@store');
 Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
-// Route::post('/client', 'TicketController@show');
+// Route::get('/tickets', 'TicketController@show');
 

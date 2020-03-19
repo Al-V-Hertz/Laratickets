@@ -17,10 +17,10 @@ class TicketController extends Controller
         $newTicket->save();
         return redirect()->route('client');
     }
-    // public function show(){
-    //     $tickets = Ticket()->all();
-    //     return view('/client')->with('tickets', $tickets);
-    // }
+    public function show(){
+        $tickets = Ticket::all(); //where sender==auth:user//   
+        return view('client')->with('tickets', $tickets);
+    }
     public function index(){
         return view('create-ticket');
     }
