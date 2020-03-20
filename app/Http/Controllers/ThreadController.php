@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use Illuminate\Http\Request;
+use App\Ticket;
 
 class ThreadController extends Controller
 {
@@ -33,10 +34,14 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {
+    //     $newThr = new Thread();
+    //     $newThr->thread_id = $request->input('ticketid');
+    //     $newThr->comment = $request->input('comment');
+    //     $newThr->save();
+    //     return redirect()->route('/thread/$newThr->thread_id');
+    // }
 
     /**
      * Display the specified resource.
@@ -44,9 +49,10 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($id)
     {
-        //
+        $ticket = Ticket::find($id);   
+        return view('/thread')->with('ticket', $ticket);
     }
 
     /**

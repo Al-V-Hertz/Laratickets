@@ -31,12 +31,12 @@
                   <td>{{ $ticket->assignedto }}</td>
                   @endif
                   <td>{{ $ticket->importance }}</td>
-                  <td><a href="#" class="btn btn-primary">Thread</a>
+                  <td><a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a>
                     @if($ticket->assignedto == Auth::user()->name)
-                        <a href="#" class="btn btn-primary">Modify</a>
-                        <a href="#" class="btn btn-danger">Return</a>
+                        <a href="/thread/{{$ticket->id}}" class="btn btn-primary">Modify</a>
+                        <a href="/return/{{$ticket->id}}" class="btn btn-danger">Return</a>
                     @elseif($ticket->assignedto == NULL)
-                        <a href="" class="btn btn-primary">Pickup</a>
+                        <a href="/pickup/{{$ticket->id}}" class="btn btn-primary">Pickup</a>
                     @endif
                     </td>
                </tr>
