@@ -26,7 +26,7 @@ Route::get('/addtickets', 'TicketController@store');
 Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
 Route::get('/add-thread', 'ThreadController@store');
 // Route::post('/thread/{post}', 'ThreadController@show');
-Route::get('/thread/{post}', 'ThreadController@show');
+Route::get('/thread/{post}', 'TicketController@show');
 Route::get('/pickup/{post}', 'TicketController@pickup');
 Route::get('/return/{post}', 'TicketController@return');
 // Route::get('/tickets', 'TicketController@show');

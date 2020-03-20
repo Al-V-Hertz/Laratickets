@@ -34,14 +34,15 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     $newThr = new Thread();
-    //     $newThr->thread_id = $request->input('ticketid');
-    //     $newThr->comment = $request->input('comment');
-    //     $newThr->save();
-    //     return redirect()->route('/thread/$newThr->thread_id');
-    // }
+    public function store(Request $request)
+    {
+        $newThr = new Thread();
+        $newThr->thread_id = $request->input('ticketid');
+        $newThr->sender = Auth::user()->user_type.": ".Auth::user()->name;
+        $newThr->comment = $request->input('comment');
+        $newThr->save();
+        return redirect()->route('/thread');
+    }
 
     /**
      * Display the specified resource.
@@ -49,11 +50,6 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $ticket = Ticket::find($id);   
-        return view('/thread')->with('ticket', $ticket);
-    }
 
     /**
      * Show the form for editing the specified resource.

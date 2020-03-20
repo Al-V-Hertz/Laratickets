@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
+    public function show($id)
+    {
+        $ticket = Ticket::find($id);   
+        return view('/thread')->with('ticket', $ticket);
+    }
+    
     public function store(Request $request){
         $newTicket = new Ticket();
         $newTicket->user_id = Auth::user()->id;
