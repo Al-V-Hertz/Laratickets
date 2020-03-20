@@ -1,15 +1,19 @@
 <?php
 
+
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Ticket;
+
 
 class AdminController extends Controller
 {
     public function index(){
-        if(auth::user()->user_type!='admin')
+        if(Auth::user()->user_type!='admin')
             return redirect()->route('client');
         else
-            return view('/admin');
+        $tickets = Ticket::all(); //where sender==auth:user//   
+        return view('admin')->with('tickets', $tickets);
     }
 }

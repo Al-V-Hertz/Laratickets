@@ -2,9 +2,16 @@ body{
     background-color: #f5eaea;
 }
 .jumbotron{
+    border-radius: 20px;
     padding-left: 20px;
     color: #f5eaea;
     background-color: #5b5656;
+}
+.jumbotron a{
+    color: #f5eaea;
+}
+.jumbotron a:hover{
+    color: #f5eaea;
 }
 legend, table{
     color: #5b5656;
