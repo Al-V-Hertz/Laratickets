@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Thread;
 use Illuminate\Http\Request;
 use App\Ticket;
+use Illuminate\Support\Facades\Auth;
 
 class ThreadController extends Controller
 {
@@ -14,8 +15,9 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $thread = Thread::with('ticket')->where('ticket_id', $id);
+        return view('/thread')->with('threads', $thread);
     }
 
     /**
@@ -37,8 +39,8 @@ class ThreadController extends Controller
     public function store(Request $request)
     {
         $newThr = new Thread();
-        $newThr->thread_id = $request->input('ticketid');
-        $newThr->sender = Auth::user()->user_type.": ".Auth::user()->name;
+        $newThr->ticket_id = $request->input('ticket-id');
+        $newThr->sender = Auth::user()->name;
         $newThr->comment = $request->input('comment');
         $newThr->save();
         return redirect()->route('/thread');

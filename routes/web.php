@@ -22,12 +22,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/client', 'ClientController@index')->name('client');
-Route::get('/addtickets', 'TicketController@store');
 Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
-Route::get('/add-thread', 'ThreadController@store');
-// Route::post('/thread/{post}', 'ThreadController@show');
 Route::get('/thread/{post}', 'TicketController@show');
 Route::get('/pickup/{post}', 'TicketController@pickup');
 Route::get('/return/{post}', 'TicketController@return');
-// Route::get('/tickets', 'TicketController@show');
-
+Route::post('/addtickets', 'TicketController@store');
+Route::get('/thread', 'ThreadController@index');
+Route::post('/add-thread', 'ThreadController@store');

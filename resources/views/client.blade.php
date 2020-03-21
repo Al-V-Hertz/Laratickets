@@ -24,8 +24,8 @@
                   <td>{{ $ticket->title }}</td>
                   <td>{{ $ticket->status }}</td>
                   <td>{{ $ticket->importance }}</td>
-                  <td><a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a>
-                  <a href="#" class="btn btn-primary">Modify</a></td>
+                  <td><a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a></td>
+                  {{-- <a href="#" class="btn btn-primary">Modify</a></td> --}}
                </tr>
             @endforeach
          </table>

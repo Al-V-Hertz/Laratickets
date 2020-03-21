@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="create" style="width: 1000px; margin: auto">
-    <form action="/addtickets">
+    <form action="/addtickets" method="POST">
+      @csrf
         <div class="form-group">
           <label for="exampleFormControlInput1">Ticket ID</label>
           <input name="ticket_id" type="text" class="form-control" id="exampleFormControlInput1">
