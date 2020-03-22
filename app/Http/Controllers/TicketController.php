@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Ticket;
+use App\Thread;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +11,7 @@ class TicketController extends Controller
 {
     public function show($id)
     {
-        $ticket = Ticket::find($id);   
-        return view('/thread')->with('ticket', $ticket);
+        // 
     }
     
     public function store(Request $request){

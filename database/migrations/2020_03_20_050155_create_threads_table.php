@@ -17,6 +17,7 @@ class CreateThreadsTable extends Migration
             $table->id();
             $table->string('ticket_id');
             $table->string('sender');
+            $table->string('sender_type');
             $table->string('comment');
             $table->timestamps();
         });
