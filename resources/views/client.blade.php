@@ -18,6 +18,7 @@
                  <th>Action</th>
              </tr>
             @foreach($tickets as $ticket)
+               @if($ticket->status !='Deleted')
                <tr>
                   <td>{{ $ticket->id}}</td>
                   <td>{{ $ticket->created_at}}</td>
@@ -26,9 +27,12 @@
                   <td>{{ $ticket->importance }}</td>
                   <td>
                      <a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a>
-                     <a href="/solved/{{$ticket->id}}" class="btn btn-info">Mark Solved</a>
+                     @if($ticket->status != "Solved")
+                        <a href="/solved/{{$ticket->id}}" class="btn btn-info">Mark Solved</a>
+                     @endif
                   </td>
                </tr>
+               @endif
             @endforeach
          </table>
      </div>   

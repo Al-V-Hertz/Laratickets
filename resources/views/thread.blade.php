@@ -3,18 +3,18 @@
 @section('content')
     <div class="container">
         <div class="jumbotron jumbotron-fluid">
-            <h1>{{$thr->importance}} : {{$thr->title}}</h1>
-            <h4>Status: {{$thr->status}}</h4>
+            <h1><strong>{{$thr->importance}}</strong> : {{$thr->title}}</h1>
+            <h4>Status: <strong>{{$thr->status}}</strong></h4>
             <p><em>{{$thr->desc}}</em></p>
-            @if($thr->assignedto == Auth::user()->name)
-                <br><a href="#">Edit</a> 
-                {{--modal-on-submit =======> /editposst/{{$thr->id}} --}}
-                <a href="/deletepost">Delete</a><br>
-            @elseif(Auth::user()->id == $thr->user_id)
-                <a href="/editcontent">Edit</a><br>
-            @endif
             <span>Issued: {{$thr->created_at}}</span><br>
             <span>Modified: {{$thr->updated_at}}</span>
+            @if($thr->assignedto == Auth::user()->name)
+                <br><br><a href="/editpost/{{$thr->id}}">Edit</a><br>
+            @elseif(Auth::user()->id == $thr->user_id)
+                {{-- only sender can delete? --}}
+                <br><a href="/editpost/{{$thr->id}}">Edit</a>
+                <a href="/deletepost/{{$thr->id}}">Delete</a><br>
+            @endif
         </div>
         <form method="POST" action="/add-thread">
             @csrf

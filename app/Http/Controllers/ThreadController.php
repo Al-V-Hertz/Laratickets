@@ -25,9 +25,11 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function editpost($id)
     {
-        //
+        $ticket_id = Ticket::find($id);
+        return view('editpost')->with('thr', $ticket_id);
+        // return redirect()->route('/thread/'.$id);
     }
 
     /**
@@ -60,11 +62,23 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function edit(Thread $thread)
+    public function editstore(Request $request, $id)
     {
-        //
+        $edithread = Ticket::find($id);
+        $edithread->title = $request->input('title');
+        $edithread->desc = $request->input('desc');
+        $edithread->importance = $request->input('importance');
+        $edithread->save();
+        return redirect('/thread/'.$request->input('id'));
     }
 
+    public function deletepost($id)
+    {
+        $delthread = Ticket::find($id);
+        $delthread->status = "Deleted";
+        $delthread->save();
+        return redirect('/client');
+    }
     /**
      * Update the specified resource in storage.
      *

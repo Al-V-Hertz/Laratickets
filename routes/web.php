@@ -29,5 +29,6 @@ Route::get('solved/{id}', 'TicketController@solved');
 Route::post('/addtickets', 'TicketController@store');
 Route::post('/add-thread', 'ThreadController@store');
 Route::get('/thread/{post}', 'ThreadController@index');
-// Route::post('editpost/{id}', '');
-// Route::post('deletepost/{id}', '');
+Route::get('/editpost/{id}', 'ThreadController@editpost');
+Route::post('/submit-edit/{id}', 'ThreadController@editstore');
+Route::get('deletepost/{id}', 'ThreadController@deletepost');
