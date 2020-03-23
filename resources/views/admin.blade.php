@@ -20,7 +20,8 @@
                 <th>Action</th>
             </tr>
             @foreach($tickets as $ticket)
-            @if($ticket->status != 'Solved' && $ticket->status != 'Deleted')
+            @if($ticket->status != 'Deleted')
+            {{-- $ticket->status != 'Solved' &&  --}}
                <tr>
                   <td>{{ $ticket->id}}</td>
                   <td>{{ $ticket->created_at}}</td>
