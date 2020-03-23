@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
-    public function show($id)
+    public function solved($id)
     {
-        // 
+        $solTicket = Ticket::find($id);
+        $solTicket->status = "Solved";
+        $solTicket->save();
+        return redirect()->route('client');
     }
     
     public function store(Request $request){

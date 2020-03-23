@@ -14,10 +14,10 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($request)
     {   
-        $thread = Ticket::find($id);
-        return view('/thread')->with('thr', $thread);
+        $ticket_id = Ticket::find($request);
+        return view('/thread')->with('thr', $ticket_id);
     }
 
     /**

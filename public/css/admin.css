@@ -19,4 +19,9 @@ legend, table{
 table{
     width: 100%;
 }
-
+hr{
+    background-color: #5b5656;
+}
+.comment hr{
+    background-color: inherit;
+}

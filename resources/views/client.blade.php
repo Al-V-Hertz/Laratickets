@@ -19,12 +19,15 @@
              </tr>
             @foreach($tickets as $ticket)
                <tr>
-                  <td>{{ $ticket->ticket_id}}</td>
+                  <td>{{ $ticket->id}}</td>
                   <td>{{ $ticket->created_at}}</td>
                   <td>{{ $ticket->title }}</td>
                   <td>{{ $ticket->status }}</td>
                   <td>{{ $ticket->importance }}</td>
-                  <td><a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a></td>
+                  <td>
+                     <a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a>
+                     <a href="/solved/{{$ticket->id}}" class="btn btn-info">Mark Solved</a>
+                  </td>
                </tr>
             @endforeach
          </table>
