@@ -6,15 +6,34 @@ use App\Thread;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 class TicketController extends Controller
 {
     public function solved($id)
-    {
-        $solTicket = Ticket::find($id);
-        $solTicket->status = "Solved";
-        $solTicket->save();
-        return redirect()->route('client');
+    {   
+        if(URL::previous() == URL::to('/')."/client"){
+            $solTicket = Ticket::find($id);
+            $solTicket->status = "Solved";
+            $solTicket->save();
+            return redirect("/client");
+        }
+        else if(URL::previous() == URL::to('/')."/thread/".$id){
+            $comment = Thread::find($id);
+            $comment->solution = "true";
+            $ticket = Ticket::find($comment->ticket_id);
+            $ticket->status = "Solved";
+            $comment->save();
+            $ticket->save();
+            return redirect('/thread/'.$id);
+        }
+        else{
+            return redirect("/client");
+        }
+        // $sol = Ticket::find($id);
+        // $com = Thread::find($id);
+        // dd($id);
+        // dd( URL::previous());
     }
     
     public function store(Request $request){
@@ -26,7 +45,7 @@ class TicketController extends Controller
         $newTicket->assignedto = $request->input('assignedto');
         $newTicket->importance = $request->input('importance');
         $newTicket->save();
-        return redirect()->route('client');
+        return redirect('/client');
     }
    
     public function index(){
@@ -38,7 +57,7 @@ class TicketController extends Controller
         $updTicket->assignedto = Auth::user()->name;
         $updTicket->status = 'Pending';
         $updTicket->save();
-        return redirect()->route('client');
+        return redirect('/client');
     }
 
     public function return($id){
@@ -46,6 +65,6 @@ class TicketController extends Controller
         $updTicket->assignedto = '';
         $updTicket->status = 'Returned';
         $updTicket->save();
-        return redirect()->route('client');
+        return redirect('/client');
     }
 }

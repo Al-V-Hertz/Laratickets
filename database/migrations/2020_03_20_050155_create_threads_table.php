@@ -19,6 +19,7 @@ class CreateThreadsTable extends Migration
             $table->string('sender');
             $table->string('sender_type');
             $table->string('comment');
+            $table->string('solution')->default('false');
             $table->timestamps();
         });
     }

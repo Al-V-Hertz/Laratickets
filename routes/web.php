@@ -17,18 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/home', 'HomeController@index');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// admin only
 Route::get('/admin', 'AdminController@index')->name('admin');
-Route::get('/client', 'ClientController@index')->name('client');
-Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
 Route::get('/pickup/{post}', 'TicketController@pickup');
 Route::get('/return/{post}', 'TicketController@return');
-Route::get('solved/{id}', 'TicketController@solved');
+
+// client only
+Route::get('/client', 'ClientController@index')->name('client');
+Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
 Route::post('/addtickets', 'TicketController@store');
+Route::get('/solved/{id}', 'TicketController@solved');
+Route::get('/deletepost/{id}', 'ThreadController@deletepost');
+
+// both accesses
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/submit-edit/{id}', 'ThreadController@editstore');
+Route::get('/editpost/{id}', 'ThreadController@editpost');
 Route::post('/add-thread', 'ThreadController@store');
 Route::get('/thread/{post}', 'ThreadController@index');
-Route::get('/editpost/{id}', 'ThreadController@editpost');
-Route::post('/submit-edit/{id}', 'ThreadController@editstore');
-Route::get('deletepost/{id}', 'ThreadController@deletepost');

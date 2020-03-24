@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\Ticket;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Route;
 class ThreadController extends Controller
 {
     /**
@@ -14,10 +14,11 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($request)
+    public function index($id)
     {   
-        $ticket_id = Ticket::find($request);
-        return view('/thread')->with('thr', $ticket_id);
+        $ticket = Ticket::find($id);
+
+        return view('/thread')->with('thr', $ticket);
     }
 
     /**

@@ -9,14 +9,14 @@
             <span>Issued: {{$thr->created_at}}</span><br>
             <span>Modified: {{$thr->updated_at}}</span>
 
-            @if($thr->assignedto == Auth::user()->name)
+            @if($thr->assignedto == Auth::user()->name && $thr->status !="Solved")
                 <br><br><a href="/editpost/{{$thr->id}}">Edit</a><br>
-            @elseif(Auth::user()->id == $thr->user_id)
-                {{-- only sender can delete? --}}
-                <br><a href="/editpost/{{$thr->id}}">Edit</a>
+            @elseif(Auth::user()->id == $thr->user_id && $thr->status != "Solved") 
+                {{-- only ticket creator can delete --}}
+                <br><br><a href="/editpost/{{$thr->id}}">Edit</a>
                 <a href="/deletepost/{{$thr->id}}">Delete</a><br>
-            @elseif($thr->status == "Solved")
-                <br><a href="/editpost/{{$thr->id}}">Reopen</a><br>
+            @elseif($thr->status == "Solved" && Auth::user()->name == $thr->assignedto || Auth::user()->id == $thr->user_id)
+                <br><br><a href="/editpost/{{$thr->id}}">Reopen</a><br>
             @endif
 
         </div>
@@ -32,23 +32,33 @@
         <hr>
         <h2>Comments</h2>
         @if($thr->status == "Solved")
-            <div class="alert alert-primary">Ticket Resolved by: {{$thr->assignedto}}</div>
+            <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
         @elseif($thr->status == "Reopened")
-            <div class="alert alert-primary">Ticket Resolved by: {{$thr->assignedto}}</div>
-            <div class="alert alert-info">Iicket Reopened</div>
+            <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
+            <div class="alert alert-primary">Ticket was <strong>Reopened</strong></div>
         @elseif($thr->status == "Deleted")
-            <div class="alert alert-danger">Ticket Deleted</div>
+            <div class="alert alert-danger">Ticket was <strong>Deleted</strong></div>
         @endif
-        @foreach ($thr->comments as $comment)
+        @foreach ($thr->comments->sortByDesc('created_at') as $comment)
             <div class="comment">
+                <form>
+                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                </form>
                 <h4>
                     @if($comment->sender == Auth::user()->name)
                         You
                     @else    
                         {{$comment->sender}} ( <em>{{$comment->sender_type}}</em> )
                     @endif
-                </h4>
-                <span>{{$comment->comment}}</span>
+                </h4><sup>{{$comment->created_at}}</sup>
+                <p>
+                    @if($comment->solution == "true")
+                        &#x1f947;
+                    @endif
+                    {{$comment->comment}}</p>
+                @if($thr->status != "Solved" && $thr->user_id == Auth::user()->id)
+                    <span><a href="/solved/{{$comment->id}}">Eureka</a></span>
+                @endif
                 <hr>
             </div>
         @endforeach

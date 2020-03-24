@@ -26,6 +26,10 @@ hr{
     background-color: inherit;
 }
 
+.comment a{
+    color: #5b5656;
+}
+
 .editdiv{
     width: 80%;
     margin: auto;
