@@ -8,13 +8,17 @@
             <p><em>{{$thr->desc}}</em></p>
             <span>Issued: {{$thr->created_at}}</span><br>
             <span>Modified: {{$thr->updated_at}}</span>
+
             @if($thr->assignedto == Auth::user()->name)
                 <br><br><a href="/editpost/{{$thr->id}}">Edit</a><br>
             @elseif(Auth::user()->id == $thr->user_id)
                 {{-- only sender can delete? --}}
                 <br><a href="/editpost/{{$thr->id}}">Edit</a>
                 <a href="/deletepost/{{$thr->id}}">Delete</a><br>
+            @elseif($thr->status == "Solved")
+                <br><a href="/editpost/{{$thr->id}}">Reopen</a><br>
             @endif
+
         </div>
         <form method="POST" action="/add-thread">
             @csrf
@@ -27,6 +31,14 @@
         </form>
         <hr>
         <h2>Comments</h2>
+        @if($thr->status == "Solved")
+            <div class="alert alert-primary">Ticket Resolved by: {{$thr->assignedto}}</div>
+        @elseif($thr->status == "Reopened")
+            <div class="alert alert-primary">Ticket Resolved by: {{$thr->assignedto}}</div>
+            <div class="alert alert-info">Iicket Reopened</div>
+        @elseif($thr->status == "Deleted")
+            <div class="alert alert-danger">Ticket Deleted</div>
+        @endif
         @foreach ($thr->comments as $comment)
             <div class="comment">
                 <h4>

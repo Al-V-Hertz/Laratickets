@@ -34,7 +34,7 @@
                   @endif
                   <td>{{ $ticket->importance }}</td>
                   <td><a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a>
-                    @if($ticket->assignedto == Auth::user()->name)
+                    @if($ticket->assignedto == Auth::user()->name && $ticket->status != 'Solved')
                         <a href="/return/{{$ticket->id}}" class="btn btn-danger">Return</a>
                     @elseif($ticket->assignedto == NULL)
                         <a href="/pickup/{{$ticket->id}}" class="btn btn-primary">Pickup</a>

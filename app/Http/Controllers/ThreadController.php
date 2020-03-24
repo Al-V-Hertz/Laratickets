@@ -27,9 +27,12 @@ class ThreadController extends Controller
      */
     public function editpost($id)
     {
-        $ticket_id = Ticket::find($id);
-        return view('editpost')->with('thr', $ticket_id);
-        // return redirect()->route('/thread/'.$id);
+        $ticket = Ticket::find($id);
+        if($ticket->status == "Solved"){
+            $ticket->status = "Reopened";
+            $ticket->save();
+        }
+        return view('editpost')->with('thr', $ticket);
     }
 
     /**
