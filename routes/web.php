@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Change the Project Name 
-// Middleware Route Authentication
+// Change the Project Name (DONE)
+// Middleware Route Authentication (DONE)
 // RM Return Button for status:solved (DONE)
 // Status Comment (DONE)
 // Comments in Descending order (DONE)
