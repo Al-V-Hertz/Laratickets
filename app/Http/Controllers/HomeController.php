@@ -23,9 +23,14 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        if(Auth::user()->user_type ='client')
-            return redirect()->route('client');
-        else if(Auth::user()->user_type ='admin')
-            return redirect()->route('admin');
+        if(Auth::user()->user_type == 'client'){
+            return redirect('client');
+            // return view('client');
+        }
+        else if(Auth::user()->user_type == 'admin'){
+            return redirect('admin');
+            // return view('admin');
+        }
+        // return view('/home');
     }
 }

@@ -39,10 +39,10 @@ class TicketController extends Controller
     public function store(Request $request){
         $newTicket = new Ticket();
         $newTicket->user_id = Auth::user()->id;
-        $newTicket->ticket_id = $request->input('ticket_id');
-        $newTicket->title = $request->input('title');
-        $newTicket->desc = $request->input('desc');
-        $newTicket->importance = $request->input('importance');
+        $newTicket->ticket_id = $request->ticket_id;
+        $newTicket->title = $request->title;
+        $newTicket->desc = $request->desc;
+        $newTicket->importance = $request->importance;
         $newTicket->save();
         // dd($request);
         return redirect('/client');

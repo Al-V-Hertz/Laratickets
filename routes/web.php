@@ -13,28 +13,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Change the Project Name 
+// Middleware Route Authentication
+// RM Return Button for status:solved (DONE)
+// Status Comment (DONE)
+// Comments in Descending order (DONE)
+// Reopen Button/link (DONE)
+// Jquery Post method (DONE)
+
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Route::get('/home', 'HomeController@index');
-Auth::routes();
+Route::get('/home', 'HomeController@index');
 
 // admin only
-Route::get('/admin', 'AdminController@index')->name('admin');
-Route::get('/pickup/{post}', 'TicketController@pickup');
-Route::get('/return/{post}', 'TicketController@return');
+Route::group(["middleware" => "App\Http\Middleware\AdminCheck"], function(){
+    Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/pickup/{post}', 'TicketController@pickup');
+    Route::get('/return/{post}', 'TicketController@return');
+});
 
 // client only
-Route::get('/client', 'ClientController@index')->name('client');
-Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
-Route::post('/addtickets', 'TicketController@store');
-Route::get('/solved/{id}', 'TicketController@solved');
-Route::get('/deletepost/{id}', 'ThreadController@deletepost');
+Route::group(["middleware" => "App\Http\Middleware\ClientCheck"], function(){
+    Route::get('/client', 'ClientController@index')->name('client');
+    Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
+    Route::post('/addtickets', 'TicketController@store');
+    Route::get('/solved/{id}', 'TicketController@solved');
+    Route::get('/deletepost/{id}', 'ThreadController@deletepost');
+});
 
 // both accesses
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/submit-edit/{id}', 'ThreadController@editstore');
-Route::get('/editpost/{id}', 'ThreadController@editpost');
-Route::post('/add-thread', 'ThreadController@store');
-Route::get('/thread/{post}', 'ThreadController@index');
+Route::group(["middleware" => "App\Http\Middleware\AuthCheck"], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('/submit-edit/{id}', 'ThreadController@editstore');
+    Route::get('/editpost/{id}', 'ThreadController@editpost');
+    Route::post('/add-thread', 'ThreadController@store');
+    Route::get('/thread/{post}', 'ThreadController@index');
+});
+
+Auth::routes();
