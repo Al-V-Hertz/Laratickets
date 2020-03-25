@@ -41,9 +41,9 @@
         @endif
         @foreach ($thr->comments->sortByDesc('created_at') as $comment)
             <div class="comment">
-                <form>
-                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
-                </form>
+                {{-- <form action="/solved/{{$comment->id}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="comment_id" value="{{$comment->id}}"> --}}
                 <h4>
                     @if($comment->sender == Auth::user()->name)
                         You
@@ -58,8 +58,10 @@
                     {{$comment->comment}}</p>
                 @if($thr->status != "Solved" && $thr->user_id == Auth::user()->id)
                     <span><a href="/solved/{{$comment->id}}">Eureka</a></span>
+                    {{-- <button>Eureka</button> --}}
                 @endif
                 <hr>
+            {{-- </form> --}}
             </div>
         @endforeach
     </div>

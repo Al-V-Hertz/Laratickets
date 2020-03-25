@@ -19,17 +19,19 @@ class TicketController extends Controller
             return redirect("/client");
         }
         else if(URL::previous() == URL::to('/')."/thread/".$id){
-            $comment = Thread::find($id);
-            $comment->solution = "true";
-            $ticket = Ticket::find($comment->ticket_id);
+            $ticket = Ticket::find($id);
             $ticket->status = "Solved";
-            $comment->save();
+            $thid = $ticket->comments->id;
+            $comment = Thread::find($thid);
             $ticket->save();
+            $comment->solution = "true";
+            $comment->save();
             return redirect('/thread/'.$id);
+            // dd($request->input('comment_id'));
         }
-        else{
-            return redirect("/client");
-        }
+        // else{
+        //     return redirect("/client");
+        // }
         // $sol = Ticket::find($id);
         // $com = Thread::find($id);
         // dd($id);
