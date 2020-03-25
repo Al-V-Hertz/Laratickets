@@ -17,7 +17,7 @@
                  <th>Importance</th>
                  <th>Action</th>
              </tr>
-            @foreach($tickets as $ticket)
+            @foreach($tickets->sortByDesc('created_at') as $ticket)
                @if($ticket->status !='Deleted')
                <tr>
                   <td>{{ $ticket->id}}</td>

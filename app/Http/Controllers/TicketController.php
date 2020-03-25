@@ -42,9 +42,9 @@ class TicketController extends Controller
         $newTicket->ticket_id = $request->input('ticket_id');
         $newTicket->title = $request->input('title');
         $newTicket->desc = $request->input('desc');
-        $newTicket->assignedto = $request->input('assignedto');
         $newTicket->importance = $request->input('importance');
         $newTicket->save();
+        // dd($request);
         return redirect('/client');
     }
    
