@@ -29,34 +29,3 @@
       </form>
 </div>
 @endsection
-
-@section('jquery')
-    <script>
-      $(document).ready(function(){
-        $.ajaxSetup({
-			      headers: {
-				      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			      }
-		    });
-        $("#addtick").click(function(){
-          $ticket_id=$("#ticket_id").val();
-          $title=$("#title").val();
-          $desc=$("#desc").val();
-          $importance=$("#importance").val();
-          $.ajax({
-               type:'POST',
-               url:'/addtickets',
-               data: {
-                 ticket_id : ticket_id,
-                 title : title,
-                 desc : desc,
-                 importance : importance
-               };
-              //  success: function(data) {
-              //     alert('Success');
-              //  };
-            });
-        });
-      });
-    </script>
-@endsection

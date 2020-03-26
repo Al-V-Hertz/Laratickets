@@ -6,18 +6,21 @@
          <h2>Hello {{Auth::user()->name}}</h2>
          <a href="/create-ticket">Create a Ticket </a>
       </div>
-      <div class="table table-striped">
-         <table>
-             <legend>Tickets</legend>
-             <tr>
-                 <th>Ticket ID</th>
-                 <th>Date Created</th>
-                 <th>Topic</th>
-                 <th>Status</th>
-                 <th>Importance</th>
-                 <th>Action</th>
-             </tr>
-            @foreach($tickets->sortByDesc('created_at') as $ticket)
+      <div>
+         <h3>My Tickets</h3>
+         <table class="datatables display stripe hover nowrap">
+             <thead>
+               <tr>
+                  <th>Ticket ID</th>
+                  <th>Date Created</th>
+                  <th>Topic</th>
+                  <th>Status</th>
+                  <th>Importance</th>
+                  <th>Action</th>
+              </tr>
+             </thead>
+            <tbody>
+               @foreach($tickets->sortByDesc('created_at') as $ticket)
                @if($ticket->status !='Deleted')
                <tr>
                   <td>{{ $ticket->id}}</td>
@@ -34,6 +37,7 @@
                </tr>
                @endif
             @endforeach
+            </tbody>
          </table>
      </div>   
    </div>
