@@ -34,31 +34,35 @@
         @if($thr->status == "Solved")
             <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
         @elseif($thr->status == "Reopened")
-            <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
             <div class="alert alert-primary">Ticket was <strong>Reopened</strong></div>
+            <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
         @elseif($thr->status == "Deleted")
             <div class="alert alert-danger">Ticket was <strong>Deleted</strong></div>
         @endif
         @foreach ($thr->comments->sortByDesc('created_at') as $comment)
-            <div class="comment">
+        <div class="card">
+            <div class="card-header">
                 <h4>
-                    @if($comment->sender == Auth::user()->name)
-                        You
-                    @else    
-                        {{$comment->sender}} ( <em>{{$comment->sender_type}}</em> )
-                    @endif
-                </h4><sup>{{$comment->created_at}}</sup>
-                <p>
+                @if($comment->sender == Auth::user()->name)
+                    You
+                @else    
+                    {{$comment->sender}} ( <em>{{$comment->sender_type}}</em> )
+                @endif
+                </h4>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">{{$comment->created_at}}</h6>
+                <p class="card-text">
                     @if($comment->solution == "true")
                         &#x1f947;
                     @endif
-                    {{$comment->comment}}</p>
+                    {{$comment->comment}}
+                </p>
                 @if($thr->status != "Solved" && $thr->user_id == Auth::user()->id)
-                    {{-- {{$comment->id}} --}}
-                    <span><a href="/solved/{{$thr->id}}/{{$comment->id}}">Eureka</a></span>
+                    <a class="btn btn-primary" href="/solved/{{$thr->id}}/{{$comment->id}}">Eureka</a>
                 @endif
-                <hr>
             </div>
+          </div>
         @endforeach
     </div>
 @endsection

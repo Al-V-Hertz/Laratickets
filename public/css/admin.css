@@ -22,12 +22,14 @@ table{
 hr{
     background-color: #5b5656;
 }
-.comment hr{
-    background-color: inherit;
+.card{
+    border-radius: 10px;
+    border: 2px solid #5b5656;
+    margin-bottom: 10px;
 }
-
-.comment a{
-    color: #5b5656;
+.card a, .card-header{
+    background-color: #5b5656;
+    color: white;
 }
 
 .editdiv{

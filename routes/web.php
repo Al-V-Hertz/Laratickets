@@ -45,7 +45,7 @@ Route::group(["middleware" => "App\Http\Middleware\ClientCheck"], function(){
 // both accesses
 Route::group(["middleware" => "App\Http\Middleware\AuthCheck"], function(){
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::post('/submit-edit/{id}', 'ThreadController@editstore');
+    Route::post('/submit-edit/{id}', 'TicketController@editstore');
     Route::get('/editpost/{id}', 'ThreadController@editpost');
     Route::post('/add-thread', 'ThreadController@store');
     Route::get('/thread/{post}', 'ThreadController@index');

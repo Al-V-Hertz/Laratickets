@@ -62,4 +62,14 @@ class TicketController extends Controller
         $updTicket->save();
         return redirect('/client');
     }
+    
+    public function editstore(Request $request, $id)
+    {
+        $edit = Ticket::find($id);
+        $edit->title = $request->input('title');
+        $edit->desc = $request->input('desc');
+        $edit->importance = $request->input('importance');
+        $edit->save();
+        return redirect('/thread/'.$request->input('id'));
+    }
 }

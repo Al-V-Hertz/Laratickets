@@ -9,11 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Route;
 class ThreadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index($id)
     {   
         $ticket = Ticket::find($id);
@@ -21,11 +17,6 @@ class ThreadController extends Controller
         return view('/thread')->with('thr', $ticket);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function editpost($id)
     {
         $ticket = Ticket::find($id);
@@ -36,12 +27,6 @@ class ThreadController extends Controller
         return view('editpost')->with('thr', $ticket);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $newThr = new Thread();
@@ -53,29 +38,6 @@ class ThreadController extends Controller
         return redirect('/thread/'.$request->input('ticket-id'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function editstore(Request $request, $id)
-    {
-        $edithread = Ticket::find($id);
-        $edithread->title = $request->input('title');
-        $edithread->desc = $request->input('desc');
-        $edithread->importance = $request->input('importance');
-        $edithread->save();
-        return redirect('/thread/'.$request->input('id'));
-    }
-
     public function deletepost($id)
     {
         $delthread = Ticket::find($id);
@@ -83,26 +45,5 @@ class ThreadController extends Controller
         $delthread->save();
         return redirect('/client');
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Thread $thread)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Thread $thread)
-    {
-        //
-    }
 }
