@@ -20,7 +20,7 @@
               </tr>
              </thead>
             <tbody>
-               @foreach($tickets->sortByDesc('created_at') as $ticket)
+               @foreach($tickets as $ticket)
                @if($ticket->status !='Deleted')
                <tr>
                   <td>{{ $ticket->id}}</td>

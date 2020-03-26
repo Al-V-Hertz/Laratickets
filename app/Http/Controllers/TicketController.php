@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 class TicketController extends Controller
 {
+    // public function log($name, $type, $comment, $status)
+    // {
+    //     if($status == "Pending")
+    //     {
+    //         $status = "Picked Up";
+    //     }
+    //     $log = new Thread();
+    //     $log->comment = "Ticket ".$log->.""
+    // }
     public function solved($tid, $cid)
     {   
         $ticket = Ticket::find($tid);
