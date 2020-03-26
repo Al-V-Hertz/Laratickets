@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <div class="jumbotron jumbotron-fluid">
+            <h5>Issue Code: {{$thr->created_at}}-{{$thr->importance}}-{{$thr->id}}</h5>
             <h1><strong>{{$thr->importance}}</strong> : {{$thr->title}}</h1>
             <h4>Status: <strong>{{$thr->status}}</strong></h4>
             <p><em>{{$thr->desc}}</em></p>
@@ -31,15 +32,16 @@
         </form>
         <hr>
         <h2>Comments</h2>
-        @if($thr->status == "Solved")
+        {{-- @if($thr->status == "Solved")
             <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
         @elseif($thr->status == "Reopened")
             <div class="alert alert-primary">Ticket was <strong>Reopened</strong></div>
             <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
         @elseif($thr->status == "Deleted")
             <div class="alert alert-danger">Ticket was <strong>Deleted</strong></div>
-        @endif
+        @endif --}}
         @foreach ($thr->comments->sortByDesc('created_at') as $comment)
+        @if($comment->sender_type != "Bot")
         <div class="card">
             <div class="card-header">
                 <h4>
@@ -63,6 +65,16 @@
                 @endif
             </div>
           </div>
+          @else 
+          <div class="card" style="background-color: #5b5656; color: white">
+            <div class="card-header">
+                <h3>{{$comment->sender}} ({{$comment->sender_type}})</h3>
+            </div>
+            <div class="card-body">
+               <strong>{{$comment->created_at}}</strong>  {{ $comment->comment}}
+            </div>
+          </div>
+          @endif
         @endforeach
     </div>
 @endsection

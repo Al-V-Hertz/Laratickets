@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Route;
 class ThreadController extends Controller
 {
+    public function log($tid, $status, $who, $type)
+    {
+        // returned, reopened, pick up, solved, deleted, unassigned
+        if($status == "Pending")
+        {
+            $status = "Picked Up";
+        }
+        $log = new Thread();
+        $log->ticket_id = $tid;
+        $log->sender = "Acacia";
+        $log->sender_type = "Bot";
+        $log->comment = "Ticket was ".$status." by ".$type.": ".$who;
+        $log->save();
+    }
     
     public function index($id)
     {   
@@ -23,6 +37,7 @@ class ThreadController extends Controller
         if($ticket->status == "Solved"){
             $ticket->status = "Reopened";
             $ticket->save();
+            $this->log($id, $ticket->status, Auth::user()->name, Auth::user()->user_type);
         }
         return view('editpost')->with('thr', $ticket);
     }

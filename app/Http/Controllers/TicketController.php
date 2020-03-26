@@ -10,21 +10,30 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 class TicketController extends Controller
 {
-    // public function log($name, $type, $comment, $status)
-    // {
-    //     if($status == "Pending")
-    //     {
-    //         $status = "Picked Up";
-    //     }
-    //     $log = new Thread();
-    //     $log->comment = "Ticket ".$log->.""
-    // }
+    public function log($tid, $status, $who, $type)
+    {
+        // returned, reopened, pick up, solved, deleted, unassigned
+        if($status == "Pending")
+        {
+            $status = "Picked Up";
+        }elseif($status == "Solved"){
+            $status == "Marked Solved";
+        }
+        $log = new Thread();
+        $log->ticket_id = $tid;
+        $log->sender = "Acacia";
+        $log->sender_type = "Bot";
+        $log->comment = "Ticket was ".$status." by ".$type.": ".$who;
+        $log->save();
+    }
+
     public function solved($tid, $cid)
     {   
         $ticket = Ticket::find($tid);
         if(URL::previous() == URL::to('/')."/client"){
             $ticket->status = "Solved";
             $ticket->save();
+            $this->log($tid, $ticket->status, Auth::user()->name, Auth::user()->user_type);
             return redirect("/client");
             // dd($id);
         }
@@ -34,8 +43,8 @@ class TicketController extends Controller
             $ticket->status = "Solved";
             $comment->save();
             $ticket->save();
+            $this->log($tid, $ticket->status, Auth::user()->name, Auth::user()->user_type);
             return redirect('/thread/'.$tid);
-            // dd($id);
         }
     }
     
@@ -47,9 +56,7 @@ class TicketController extends Controller
         $newTicket->desc = $request->desc;
         $newTicket->importance = $request->importance;
         $newTicket->save();
-        // dd($request);
-        // return redirect('/client');
-        // return $request->title;
+        $this->log($newTicket->id, "Created", Auth::user()->name, Auth::user()->user_type);
     }
    
     public function index(){
@@ -61,6 +68,7 @@ class TicketController extends Controller
         $updTicket->assignedto = Auth::user()->name;
         $updTicket->status = 'Pending';
         $updTicket->save();
+        $this->log($id, $updTicket->status, Auth::user()->name, Auth::user()->user_type);
         return redirect('/client');
     }
 
@@ -69,6 +77,7 @@ class TicketController extends Controller
         $updTicket->assignedto = '';
         $updTicket->status = 'Returned';
         $updTicket->save();
+        $this->log($id, $updTicket->status, Auth::user()->name, Auth::user()->user_type);
         return redirect('/client');
     }
     
@@ -79,6 +88,7 @@ class TicketController extends Controller
         $edit->desc = $request->input('desc');
         $edit->importance = $request->input('importance');
         $edit->save();
+        $this->log($id, "Modified", Auth::user()->name, Auth::user()->user_type);
         return redirect('/thread/'.$request->input('id'));
     }
 }

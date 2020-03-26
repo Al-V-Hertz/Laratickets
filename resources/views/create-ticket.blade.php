@@ -27,3 +27,28 @@
         </form>
 </div>
 @endsection
+@push('jquery')
+    <script>
+       $(document).ready(function(){
+      $("#addtick").click(function(){
+        var ticket_id = $("#ticket_id").val();
+        var title = $("#title").val();
+        var desc = $("#desc").val();
+        var importance = $("#importance").val();
+        $.ajax({
+             type:'POST',
+             url:"{{ route('addtickets') }}",
+             data: {
+               ticket_id,
+               title,
+               desc,
+               importance
+             },
+            success: function() {
+                window.location.href = "/client";
+            }
+          });
+      });
+    });
+    </script>
+@endpush

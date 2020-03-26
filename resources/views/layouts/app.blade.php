@@ -80,38 +80,21 @@
     </div>
 </body>
 <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js" defer></script>
-  <script>
+src="https://code.jquery.com/jquery-3.4.1.js"
+integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js" defer></script>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
     $(document).ready(function(){
-      $("table").DataTable();
-      $.ajaxSetup({
+        $("table").DataTable();
+        CKEDITOR.replace('desc');
+        $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-      });
-      $("#addtick").click(function(){
-        var ticket_id = $("#ticket_id").val();
-        var title = $("#title").val();
-        var desc = $("#desc").val();
-        var importance = $("#importance").val();
-        $.ajax({
-             type:'POST',
-             url:"{{ route('addtickets') }}",
-             data: {
-               ticket_id,
-               title,
-               desc,
-               importance
-             },
-            success: function() {
-                window.location.href = "/client";
-            }
-          });
-        // alert($ticket_id+$title+$desc+$importance);
-      });
+        });
     });
-  </script>
+    </script>
+    @stack('jquery')
 </html>

@@ -12,14 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Change the Project Name (DONE)
-// Middleware Route Authentication (DONE)
-// RM Return Button for status:solved (DONE)
-// Status Comment (DONE)
-// Comments in Descending order (DONE)
-// Reopen Button/link (DONE)
-// Jquery Post method (DONE)
+// wysiwyg (used CKEDITOR instead) ---DONE
+// comment log 
+// ticket format --DONE
 
 Route::get('/', function () {
     return view('welcome');
