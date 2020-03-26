@@ -7,10 +7,11 @@
         <h2>Hi {{Auth::user()->name}}!</h2>
         {{-- <span>Share your knowledge!</span> --}}
     </div>
-    <div class="datatables">
-        <table class ="table table-striped">
-            <legend>Tickets</legend>
-            <tr>
+    <div>
+      <h3>Tickets</h3>
+      <table class="datatables display stripe hover nowrap">
+            <thead>
+              <tr>
                 <th>Ticket ID</th>
                 <th>Date Created</th>
                 <th>Description</th>
@@ -19,6 +20,7 @@
                 <th>Importance</th>
                 <th>Action</th>
             </tr>
+            </thead>
             @foreach($tickets->sortByDesc('created_at') as $ticket)
             @if($ticket->status != 'Deleted')
             {{-- $ticket->status != 'Solved' &&  --}}

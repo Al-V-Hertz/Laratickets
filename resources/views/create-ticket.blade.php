@@ -2,9 +2,6 @@
 
 @section('content')
 <div class="create" style="width: 1000px; margin: auto">
-    <form action="/addtickets" method="POST">
-      
-      @csrf
         <div class="form-group">
           <label for="exampleFormControlInput1">Ticket ID</label>
           <input id="ticket_id" name="ticket_id" type="text" class="form-control" id="exampleFormControlInput1">
@@ -25,7 +22,6 @@
             <option>Low</option>
           </select>
         </div>
-        <button id="addtick" type="submit" class="btn btn-primary">Submit</button>
-      </form>
+        <button id="addtick" type="button" class="btn btn-primary">Submit</button>
 </div>
 @endsection

@@ -85,13 +85,13 @@
   crossorigin="anonymous"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js" defer></script>
   <script>
-    $(document).ready(function(){
-      $("table").DataTable();
+    $(document).ready(function(event){
+        $("table").DataTable();
       $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-          });
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
       $("#addtick").click(function(){
         $ticket_id=$("#ticket_id").val();
         $title=$("#title").val();
@@ -101,14 +101,14 @@
              type:'POST',
              url:'/addtickets',
              data: {
-               ticket_id : ticket_id,
-               title : title,
-               desc : desc,
-               importance : importance
-             }
-            //  success: function(data) {
-            //     alert('Success');
-            //  };
+               ticket_id,
+               title,
+               desc,
+               importance
+             },
+            success: function() {
+                window.location.href = "/client";
+            }
           });
       });
     });

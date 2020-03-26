@@ -31,7 +31,7 @@
                   <td>
                      <a href="/thread/{{$ticket->id}}" class="btn btn-primary">Thread</a>
                      @if($ticket->status != "Solved")
-                        <a href="/solved/{{$ticket->id}}" class="btn btn-info">Mark Solved</a>
+                        <a href="/solved/{{$ticket->id}}/{{0}}" class="btn btn-info">Mark Solved</a>
                      @endif
                   </td>
                </tr>

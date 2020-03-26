@@ -38,7 +38,7 @@ Route::group(["middleware" => "App\Http\Middleware\ClientCheck"], function(){
     Route::get('/client', 'ClientController@index')->name('client');
     Route::get('/create-ticket', 'TicketController@index')->name('create-ticket');
     Route::post('/addtickets', 'TicketController@store');
-    Route::get('/solved/{id}', 'TicketController@solved');
+    Route::get('/solved/{tid}/{cid}', 'TicketController@solved');
     Route::get('/deletepost/{id}', 'ThreadController@deletepost');
 });
 

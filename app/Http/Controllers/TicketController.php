@@ -10,32 +10,24 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 class TicketController extends Controller
 {
-    public function solved($id)
+    public function solved($tid, $cid)
     {   
+        $ticket = Ticket::find($tid);
         if(URL::previous() == URL::to('/')."/client"){
-            $solTicket = Ticket::find($id);
-            $solTicket->status = "Solved";
-            $solTicket->save();
-            return redirect("/client");
-        }
-        else if(URL::previous() == URL::to('/')."/thread/".$id){
-            $ticket = Ticket::find($id);
             $ticket->status = "Solved";
-            $thid = $ticket->comments->id;
-            $comment = Thread::find($thid);
             $ticket->save();
-            $comment->solution = "true";
-            $comment->save();
-            return redirect('/thread/'.$id);
-            // dd($request->input('comment_id'));
+            return redirect("/client");
+            // dd($id);
         }
-        // else{
-        //     return redirect("/client");
-        // }
-        // $sol = Ticket::find($id);
-        // $com = Thread::find($id);
-        // dd($id);
-        // dd( URL::previous());
+        else if(URL::previous() == URL::to('/').'/thread/'.$tid){
+            $comment = Thread::find($cid);
+            $comment->solution = "true";
+            $ticket->status = "Solved";
+            $comment->save();
+            $ticket->save();
+            return redirect('/thread/'.$tid);
+            // dd($id);
+        }
     }
     
     public function store(Request $request){
