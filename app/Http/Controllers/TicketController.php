@@ -39,7 +39,8 @@ class TicketController extends Controller
         $newTicket->importance = $request->importance;
         $newTicket->save();
         // dd($request);
-        return redirect('/client');
+        // return redirect('/client');
+        // return $request->title;
     }
    
     public function index(){
