@@ -54,7 +54,7 @@ class TicketController extends Controller
         $newTicket->desc = $request->desc;
         $newTicket->importance = $request->importance;
         $newTicket->save();
-        $newTicket->ticket_code = $newTicket->created_at.''.$request->importance.''.$newTicket->id;
+        $newTicket->ticket_code = $newTicket->created_at.strToUpper($request->importance).$newTicket->id;
         $newTicket->save();
         $this->log($newTicket->id, "Created", Auth::user()->name, Auth::user()->user_type);
     }
