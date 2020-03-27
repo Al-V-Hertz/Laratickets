@@ -9,12 +9,12 @@
                     @if($thr->user_id == Auth::user()->id)
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Title</label>
-                        <input value="{{$thr->title}}" name="title" type="text" class="form-control" id="exampleFormControlInput1">
+                        <input value="{{$thr->title}}" name="title" type="text" class="form-control" id="exampleFormControlInput1" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Description</label>
-                        <textarea name="desc" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$thr->desc}}</textarea>
-                      </div>
+                        <textarea name="desc" class="form-control" id="exampleFormControlTextarea1" rows="3" required>{{$thr->desc}}</textarea>
+                    </div>
                     @elseif($thr->assignedto == Auth::user()->name)
                         <h1><strong>{{$thr->title}}</h1>
                         <h4>Status: <strong>{{$thr->status}}</strong></h4>
@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Add Comment</label>
                 <input type="hidden" name="ticket-id" value="{{$thr->id}}">
-                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
             </div>
             <button class="btn btn-primary">Submit</button>
         </form>

@@ -9,11 +9,11 @@
           </div> --}}
           <div class="form-group">
               <label for="exampleFormControlInput1">Title</label>
-              <input id="title" name="title" type="text" class="form-control" id="exampleFormControlInput1">
+              <input id="title" name="title" type="text" class="form-control" id="exampleFormControlInput1" required>
           </div>
           <div class="form-group">
               <label for="exampleFormControlTextarea1">Description</label>
-              <textarea id="desc" name="desc" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea id="desc" name="desc" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
             </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Importance</label>

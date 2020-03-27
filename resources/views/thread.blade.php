@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Add Comment</label>
                 <input type="hidden" name="ticket-id" value="{{$thr->id}}">
-                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
             </div>
             <button class="btn btn-primary">Submit</button>
         </form>
