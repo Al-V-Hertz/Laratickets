@@ -86,9 +86,8 @@ crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js" defer></script>
 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function(){       
         $("table").DataTable();
-        CKEDITOR.replace('desc');
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -97,4 +96,5 @@ crossorigin="anonymous"></script>
     });
     </script>
     @stack('jquery')
+    @stack('com')
 </html>

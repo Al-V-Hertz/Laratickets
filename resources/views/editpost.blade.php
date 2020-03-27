@@ -18,7 +18,7 @@
                     @elseif($thr->assignedto == Auth::user()->name)
                         <h1><strong>{{$thr->title}}</h1>
                         <h4>Status: <strong>{{$thr->status}}</strong></h4>
-                        <p><em>{{$thr->desc}}</em></p>
+                        <p>{!! $thr->desc !!}</p>
                         <span>Issued: {{$thr->created_at}}</span><br><br>
                         <input type="hidden" name="title" value="{{$thr->title}}">
                         <input type="hidden" name="desc" value="{{$thr->desc}}">
@@ -48,18 +48,49 @@
         </form>
         <hr>
         <h2>Comments</h2>
-        @foreach ($thr->comments as $comment)
-            <div class="comment">
+        @foreach ($thr->comments->sortByDesc('created_at') as $comment)
+        @if($comment->sender_type != "Bot")
+        <div class="card">
+            <div class="card-header">
                 <h4>
-                    @if($comment->sender == Auth::user()->name)
-                        You
-                    @else    
-                        {{$comment->sender}} ( <em>{{$comment->sender_type}}</em> )
-                    @endif
+                @if($comment->sender == Auth::user()->name)
+                    You
+                @else    
+                    {{$comment->sender}} ( <em>{{$comment->sender_type}}</em> )
+                @endif
                 </h4>
-                <span>{{$comment->comment}}</span>
-                <hr>
             </div>
+            <div class="card-body">
+                <h6 class="card-title">{{$comment->created_at}}</h6>
+                <p class="card-text">
+                    @if($comment->solution == "true")
+                        &#x1f947;
+                    @endif
+                    {!! $comment->comment !!}
+                </p>
+                @if($thr->status != "Solved" && $thr->user_id == Auth::user()->id)
+                    <a class="btn btn-primary" href="/solved/{{$thr->id}}/{{$comment->id}}">Eureka</a>
+                @endif
+            </div>
+          </div>
+          @else 
+          <div class="card" style="background-color: #5b5656; color: white">
+            <div class="card-header">
+                <h3>{{$comment->sender}} ({{$comment->sender_type}})</h3>
+            </div>
+            <div class="card-body">
+               <strong>{{$comment->created_at}}</strong>  {!! $comment->comment !!}
+            </div>
+          </div>
+          @endif
         @endforeach
     </div>
 @endsection
+@push('com')
+    <script>
+        $(document).ready(function(){
+        CKEDITOR.replace('comment');
+        CKEDITOR.replace('desc');
+    })
+    </script>
+@endpush

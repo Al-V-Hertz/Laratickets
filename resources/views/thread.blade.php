@@ -3,10 +3,10 @@
 @section('content')
     <div class="container">
         <div class="jumbotron jumbotron-fluid">
-            <h5>Issue Code: {{$thr->created_at}}-{{$thr->importance}}-{{$thr->id}}</h5>
+            <h5>ISSUE CODE: {{$thr->ticket_code}}</h5>
             <h1><strong>{{$thr->importance}}</strong> : {{$thr->title}}</h1>
             <h4>Status: <strong>{{$thr->status}}</strong></h4>
-            <p><em>{{$thr->desc}}</em></p>
+            <p><em>{!! $thr->desc !!}</em></p>
             <span>Issued: {{$thr->created_at}}</span><br>
             <span>Modified: {{$thr->updated_at}}</span>
 
@@ -32,14 +32,6 @@
         </form>
         <hr>
         <h2>Comments</h2>
-        {{-- @if($thr->status == "Solved")
-            <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
-        @elseif($thr->status == "Reopened")
-            <div class="alert alert-primary">Ticket was <strong>Reopened</strong></div>
-            <div class="alert alert-primary">Ticket was <strong>Resolved</strong></div>
-        @elseif($thr->status == "Deleted")
-            <div class="alert alert-danger">Ticket was <strong>Deleted</strong></div>
-        @endif --}}
         @foreach ($thr->comments->sortByDesc('created_at') as $comment)
         @if($comment->sender_type != "Bot")
         <div class="card">
@@ -58,7 +50,7 @@
                     @if($comment->solution == "true")
                         &#x1f947;
                     @endif
-                    {{$comment->comment}}
+                    {!! $comment->comment !!}
                 </p>
                 @if($thr->status != "Solved" && $thr->user_id == Auth::user()->id)
                     <a class="btn btn-primary" href="/solved/{{$thr->id}}/{{$comment->id}}">Eureka</a>
@@ -71,10 +63,17 @@
                 <h3>{{$comment->sender}} ({{$comment->sender_type}})</h3>
             </div>
             <div class="card-body">
-               <strong>{{$comment->created_at}}</strong>  {{ $comment->comment}}
+               <strong>{{$comment->created_at}}</strong>  {!! $comment->comment !!}
             </div>
           </div>
           @endif
         @endforeach
     </div>
 @endsection
+@push('com')
+    <script>
+        $(document).ready(function(){
+        CKEDITOR.replace('comment');
+    })
+    </script>
+@endpush

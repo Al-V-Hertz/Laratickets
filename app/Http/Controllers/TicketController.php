@@ -12,7 +12,6 @@ class TicketController extends Controller
 {
     public function log($tid, $status, $who, $type)
     {
-        // returned, reopened, pick up, solved, deleted, unassigned
         if($status == "Pending")
         {
             $status = "Picked Up";
@@ -35,9 +34,8 @@ class TicketController extends Controller
             $ticket->save();
             $this->log($tid, $ticket->status, Auth::user()->name, Auth::user()->user_type);
             return redirect("/client");
-            // dd($id);
         }
-        else if(URL::previous() == URL::to('/').'/thread/'.$tid){
+        else if(URL::previous() == URL::to('/').'/thread/'.$tid || URL::previous() == URL::to('/').'/editpost/'.$tid){
             $comment = Thread::find($cid);
             $comment->solution = "true";
             $ticket->status = "Solved";
@@ -51,10 +49,12 @@ class TicketController extends Controller
     public function store(Request $request){
         $newTicket = new Ticket();
         $newTicket->user_id = Auth::user()->id;
-        $newTicket->ticket_id = $request->ticket_id;
+        // $newTicket->ticket_code = $request->ticket_id;
         $newTicket->title = $request->title;
         $newTicket->desc = $request->desc;
         $newTicket->importance = $request->importance;
+        $newTicket->save();
+        $newTicket->ticket_code = $newTicket->created_at.''.$request->importance.''.$newTicket->id;
         $newTicket->save();
         $this->log($newTicket->id, "Created", Auth::user()->name, Auth::user()->user_type);
     }

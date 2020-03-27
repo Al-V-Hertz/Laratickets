@@ -3,10 +3,10 @@
 @section('content')
 <div class="create" style="width: 1000px; margin: auto">
         <form>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="exampleFormControlInput1">Ticket ID</label>
             <input id="ticket_id" name="ticket_id" type="text" class="form-control" id="exampleFormControlInput1">
-          </div>
+          </div> --}}
           <div class="form-group">
               <label for="exampleFormControlInput1">Title</label>
               <input id="title" name="title" type="text" class="form-control" id="exampleFormControlInput1">
@@ -30,8 +30,10 @@
 @push('jquery')
     <script>
        $(document).ready(function(){
-      $("#addtick").click(function(){
-        var ticket_id = $("#ticket_id").val();
+        CKEDITOR.replace('desc');
+        $("#addtick").click(function(){
+          CKEDITOR.instances['desc'].updateElement();
+        // var ticket_id = $("#ticket_id").val();
         var title = $("#title").val();
         var desc = $("#desc").val();
         var importance = $("#importance").val();
@@ -39,7 +41,7 @@
              type:'POST',
              url:"{{ route('addtickets') }}",
              data: {
-               ticket_id,
+              //  ticket_id,
                title,
                desc,
                importance

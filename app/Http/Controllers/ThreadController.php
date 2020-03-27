@@ -11,18 +11,19 @@ class ThreadController extends Controller
 {
     public function log($tid, $status, $who, $type)
     {
-        // returned, reopened, pick up, solved, deleted, unassigned
-        if($status == "Pending")
-        {
-            $status = "Picked Up";
-        }
-        $log = new Thread();
-        $log->ticket_id = $tid;
-        $log->sender = "Acacia";
-        $log->sender_type = "Bot";
-        $log->comment = "Ticket was ".$status." by ".$type.": ".$who;
-        $log->save();
-    }
+         if($status == "Pending")
+         {
+             $status = "Picked Up";
+         }elseif($status == "Solved"){
+             $status == "Marked Solved";
+         }
+         $log = new Thread();
+         $log->ticket_id = $tid;
+         $log->sender = "Acacia";
+         $log->sender_type = "Bot";
+         $log->comment = "Ticket was ".$status." by ".$type.": ".$who;
+         $log->save();
+     }
     
     public function index($id)
     {   
