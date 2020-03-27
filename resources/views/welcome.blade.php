@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    &#119139; Ticket Talk &#119139;
+                    &#119139; ASTickets &#119139;
                 </div>
                 
             </div>
